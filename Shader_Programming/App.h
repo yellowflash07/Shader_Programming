@@ -7,6 +7,7 @@
 #include "cShaderManager.h"
 #include "cBasicTextureManager.h"
 #include "Camera.h"
+#include "Renderer.h"
 
 class App
 {
@@ -23,6 +24,7 @@ public:
 	Material* pDefaultMaterial;
 
 	void LoadMaterial(std::string vertexShader, std::string fragmentShader, Material& material);
+	Model* LoadModel(std::string modelName, std::string friendlyName, Material& material);
 	//static double m_mouseX;
 	//static double m_mouseY;
 
@@ -34,10 +36,10 @@ private:
 	cShaderManager m_shaderManager;
 	cBasicTextureManager m_textureManager;
 	Camera* m_pCamera;
+	Renderer* m_pRenderer;
 
-
-	float currentTime = 0.0f;
-	float lastTime = 0.0f;
-	float deltaTime = 0.0f;
+	double currentTime = 0.0f;
+	double lastTime = 0.0f;
+	double deltaTime = 0.0f;
 };
 

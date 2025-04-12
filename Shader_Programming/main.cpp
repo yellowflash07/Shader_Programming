@@ -4,10 +4,8 @@
 #include "Renderer.h"
 
 App app;
-Model* testModel;
-Renderer renderer;
 
-void Start()
+void g_Start()
 {
 	printf("Init\n");
 	app.LoadTexture("Green_Texture.jpg");
@@ -16,7 +14,7 @@ void Start()
 	Material* lineMaterial = new Material();
 	app.LoadMaterial("lineVert.glsl", "lineFrag.glsl", *lineMaterial);
 
-	testModel = new Model("plane_f.ply", "plane.ply", *lineMaterial);
+	Model *testModel = app.LoadModel("plane_f.ply", "plane.ply", *lineMaterial);
 
 	testModel->m_Transform.Position = glm::vec3(0.0f, 0.0f, -50.0f);
 	testModel->m_Transform.Scale = glm::vec3(0.1f);
@@ -25,11 +23,14 @@ void Start()
 
 }
 
-void Update()
+void g_Update(double deltaTime)
 {
-	renderer.RenderModel(testModel);
 }
 
+void g_Shutdown()
+{
+	printf("Shutdown\n");
+}
 
 int main()
 {

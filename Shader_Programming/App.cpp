@@ -1,7 +1,8 @@
 #include "App.h"
 
-void Start();
-void Update();
+void g_Start();
+void g_Update(double deltaTime);
+void g_Shutdown();
 
 double m_mouseX = 0.0;
 double m_mouseY = 0.0;
@@ -46,27 +47,7 @@ bool App::Init()
 	m_shaderManager.setBasePath("../assets/shaders/");
 	m_textureManager.SetBasePath("../assets/textures/");
 
-	cShaderManager::cShader vertexShader;
-	vertexShader.fileName = "vert.glsl";
-
-	cShaderManager::cShader tessControlShader;
-	tessControlShader.fileName = "";
-	//tessControlShader.fileName = "";
-
-	cShaderManager::cShader tessEvalShader;
-	//tessEvalShader.fileName = "";
-	tessEvalShader.fileName = "";
-
-	cShaderManager::cShader fragmentShader;
-	fragmentShader.fileName = "frag.glsl";
-
-	if (!m_shaderManager.createProgramFromFile("shader01", vertexShader, fragmentShader, tessControlShader, tessEvalShader, *pDefaultMaterial))
-	{
-		std::cout << "Error: Couldn't compile or link:" << std::endl;
-		std::cout << m_shaderManager.getLastError();
-		return false;
-	}
-
+	LoadMaterial("vert.glsl", "frag.glsl", *pDefaultMaterial);
 
 	m_pCamera = new Camera(glm::vec3(0.0, 0.0f, 10.0f),
 						   glm::vec3(0.0f, 0.0f, -1.0f),
@@ -76,7 +57,9 @@ bool App::Init()
 
 	glfwSetCursorPosCallback(m_pWindow, SMousePositionCallback);
 	
-	Start();
+	m_pRenderer = new Renderer();
+
+	g_Start();
 
 	return true;
 }
@@ -90,7 +73,10 @@ void App::Run()
 		deltaTime = currentTime - lastTime;
 		lastTime = currentTime;
 
-		Update();
+		m_pRenderer->Render();
+
+		g_Update(deltaTime);
+
 		m_pCamera->Update(m_pWindow, deltaTime);
 		m_pCamera->ProcessMouseMovement(m_mouseX, m_mouseY);
 		pDefaultMaterial->SetMat4("view", m_pCamera->matView);
@@ -109,6 +95,7 @@ void App::Run()
 void App::Shutdown()
 {
 	delete m_pCamera;
+	g_Shutdown();
 }
 
 Texture* App::LoadTexture(std::string textureName)
@@ -145,6 +132,13 @@ void App::LoadMaterial(std::string vertexShaderFile, std::string fragmentShaderF
 		std::cout << m_shaderManager.getLastError();
 		//return false;
 	}
+}
+
+Model* App::LoadModel(std::string modelName, std::string friendlyName, Material& material)
+{
+	Model* model = new Model(modelName, friendlyName, material);
+	m_pRenderer->AddModel(model);
+	return model;
 }
 
 

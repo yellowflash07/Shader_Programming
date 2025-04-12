@@ -11,7 +11,9 @@ public:
 	~Renderer();
 
 	void RenderModel(Model* model);
-	void SetViewMatrix(glm::mat4 viewMatrix);
-	void SetProjectionMatrix(glm::mat4 projectionMatrix);
+	void Render();
+	void AddModel(Model* model);
+private:
+	std::vector<Model*> m_models;
 };
 
