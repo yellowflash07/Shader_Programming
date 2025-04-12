@@ -58,7 +58,9 @@ bool App::Init()
 	glfwSetCursorPosCallback(m_pWindow, SMousePositionCallback);
 	
 	m_pRenderer = new Renderer();
-
+	//load the skybox
+	m_pSkybox = new Skybox("","","","","","");
+	m_pSkybox->m_pCamera = m_pCamera;
 	g_Start();
 
 	return true;
@@ -73,6 +75,7 @@ void App::Run()
 		deltaTime = currentTime - lastTime;
 		lastTime = currentTime;
 
+		m_pSkybox->Render();
 		m_pRenderer->Render();
 
 		g_Update(deltaTime);
@@ -95,6 +98,11 @@ void App::Run()
 void App::Shutdown()
 {
 	delete m_pCamera;
+	delete m_pRenderer;
+	for (Material* material : m_materials)
+	{
+		delete material;
+	}
 	g_Shutdown();
 }
 
@@ -110,28 +118,9 @@ Texture* App::GetTexture(std::string textureName)
 
 void App::LoadMaterial(std::string vertexShaderFile, std::string fragmentShaderFile, Material& material)
 {
-	cShaderManager::cShader vertexShader;
-	vertexShader.fileName = vertexShaderFile;
-
-	cShaderManager::cShader tessControlShader;
-	tessControlShader.fileName = "";
-	//tessControlShader.fileName = "";
-
-	cShaderManager::cShader tessEvalShader;
-	//tessEvalShader.fileName = "";
-	tessEvalShader.fileName = "";
-
-	cShaderManager::cShader fragmentShader;
-	fragmentShader.fileName = fragmentShaderFile;
-
-	std::string shaderName = vertexShaderFile + fragmentShaderFile;
-
-	if (!m_shaderManager.createProgramFromFile(shaderName, vertexShader, fragmentShader, tessControlShader, tessEvalShader, material))
-	{
-		std::cout << "Error: Couldn't compile or link:" << std::endl;
-		std::cout << m_shaderManager.getLastError();
-		//return false;
-	}
+	Material* newMaterial = cShaderManager::getInstance()->CreateMaterial(vertexShaderFile, fragmentShaderFile);
+	material = *newMaterial;
+	m_materials.push_back(&material);
 }
 
 Model* App::LoadModel(std::string modelName, std::string friendlyName, Material& material)

@@ -46,6 +46,8 @@ Model::Model(std::string fileName, std::string friendlyName,Material& material)
 
 	m_Vertices = new Vertex[m_NumVertices];
 
+
+
 	for (unsigned int i = 0; i < m_NumVertices; i++)
 	{
 		m_Vertices[i].Position = glm::vec3(scene->mMeshes[0]->mVertices[i].x, scene->mMeshes[0]->mVertices[i].y, scene->mMeshes[0]->mVertices[i].z);
@@ -59,6 +61,16 @@ Model::Model(std::string fileName, std::string friendlyName,Material& material)
 		{
 			m_Vertices[i].TexCoords = glm::vec2(scene->mMeshes[0]->mTextureCoords[0][i].x, scene->mMeshes[0]->mTextureCoords[0][i].y);
 		}
+
+		if (scene->mMeshes[0]->HasNormals())
+		{
+			m_Vertices[i].Normal = glm::vec3(scene->mMeshes[0]->mNormals[i].x, scene->mMeshes[0]->mNormals[i].y, scene->mMeshes[0]->mNormals[i].z);
+		}
+		else
+		{
+			m_Vertices[i].Normal = glm::vec3(0.0f, 0.0f, 0.0f);
+		}
+
 	}
 
 	m_NumIndices = scene->mMeshes[0]->mNumFaces * 3;
@@ -133,6 +145,7 @@ void Model::LoadVertexDataToGPU()
 	m_Material->SetAttribute(0, 3, sizeof(Vertex), 0); // position
 	m_Material->SetAttribute(1, 3, sizeof(Vertex), sizeof(glm::vec3)); // color
 	m_Material->SetAttribute(2, 2, sizeof(Vertex), sizeof(glm::vec3) * 2); // texcoords
+	m_Material->SetAttribute(3, 3, sizeof(Vertex), sizeof(glm::vec3) * 2 + sizeof(glm::vec2)); // normal
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 

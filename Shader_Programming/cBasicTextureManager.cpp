@@ -141,10 +141,7 @@ bool cBasicTextureManager::CreateCubeTextureFromBMPFiles(
 		this->m_appendErrorString( errorDetails );
 		errorString += ("\n" + errorDetails);
 		return false;
-	}//if ( ! pTempTexture->CreateNewCubeTextureFromBMPFiles()
-
-	// Texture is loaded OK
-	//this->m_nextTextureUnitOffset++;
+	}
 	
 	this->textureMap[ cubeMapName ] = pTempTexture;
 

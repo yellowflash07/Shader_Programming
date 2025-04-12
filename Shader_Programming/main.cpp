@@ -13,12 +13,12 @@ void g_Start()
 
 	Material* lineMaterial = new Material();
 	app.LoadMaterial("lineVert.glsl", "lineFrag.glsl", *lineMaterial);
-
-	Model *testModel = app.LoadModel("plane_f.ply", "plane.ply", *lineMaterial);
-
-	testModel->m_Transform.Position = glm::vec3(0.0f, 0.0f, -50.0f);
-	testModel->m_Transform.Scale = glm::vec3(0.1f);
-	testModel->m_Transform.Rotation = glm::vec3(0.0f, 0.0f, glm::radians(180.0f));
+	
+	//Model *testModel = app.LoadModel("suzanne.obj", "suzanne.obj", *app.pDefaultMaterial);
+	//
+	//testModel->m_Transform.Position = glm::vec3(0.0f, 0.0f, -0.0f);
+	//testModel->m_Transform.Scale = glm::vec3(1.1f);
+	//testModel->m_Transform.Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 
 
 }

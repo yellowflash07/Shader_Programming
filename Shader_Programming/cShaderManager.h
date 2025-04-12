@@ -9,14 +9,13 @@
 #include <glm/gtc/type_ptr.hpp>	// For glm::value_ptr
 #include <glm/glm.hpp>		// For the vec3
 #include <unordered_map>
+#include <iostream>
 //#include "../PandaEngine/GraphicsCommon.h"	// For all the OpenGL calls, etc.
 
 struct Material
 {
 	std::string name;
 	GLint shaderID;
-	Texture* texture;
-
 	std::unordered_map<std::string, GLuint> textureBindings;
 
 	void SetAttribute(GLuint layoutLocation, int size, int sizeOfStruct,int offset)
@@ -112,7 +111,7 @@ public:
 	// Used to load the uniforms. Returns NULL if not found.
 	cShaderProgram* pGetShaderProgramFromFriendlyName( std::string friendlyName );
 
-
+	Material* CreateMaterial(std::string vertex, std::string frag);
 	// Clears last error
 	std::string getLastError(void);
 

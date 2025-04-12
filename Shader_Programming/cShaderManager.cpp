@@ -10,6 +10,7 @@
 
 cShaderManager::cShaderManager()
 {
+	m_basepath = "../assets/shaders";
 	return;
 }
 
@@ -71,6 +72,36 @@ cShaderManager::cShaderProgram*
 	cShaderProgram* pShaderIFound = &(itShad->second);
 
 	return pShaderIFound;
+}
+
+Material* cShaderManager::CreateMaterial(std::string vertex, std::string frag)
+{
+	Material* material = new Material();
+
+	cShaderManager::cShader vertexShader;
+	vertexShader.fileName = vertex;
+
+	cShaderManager::cShader tessControlShader;
+	tessControlShader.fileName = "";
+	//tessControlShader.fileName = "";
+
+	cShaderManager::cShader tessEvalShader;
+	//tessEvalShader.fileName = "";
+	tessEvalShader.fileName = "";
+
+	cShaderManager::cShader fragmentShader;
+	fragmentShader.fileName = frag;
+
+	std::string shaderName = vertex + frag;
+
+	if (!createProgramFromFile(shaderName, vertexShader, fragmentShader, tessControlShader, tessEvalShader, *material))
+	{
+		std::cout << "Error: Couldn't compile or link:" << std::endl;
+		std::cout << getLastError();
+		//return false;
+	}
+
+	return material;
 }
 
 

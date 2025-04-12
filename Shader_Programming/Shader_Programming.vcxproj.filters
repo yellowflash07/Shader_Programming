@@ -31,6 +31,9 @@
     <Filter Include="Shaders\Shader Files">
       <UniqueIdentifier>{925e6e40-d10b-4dc5-94ca-5b1366bdda20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skybox">
+      <UniqueIdentifier>{278afe92-9325-40e4-a9b7-aff4182329e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\extern\include\glad\glad.h">
@@ -62,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="App.h">
       <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Skybox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +101,9 @@
     <ClCompile Include="App.cpp">
       <Filter>App</Filter>
     </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Skybox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\shaders\frag.glsl">
@@ -107,6 +116,12 @@
       <Filter>Shaders\Shader Files</Filter>
     </None>
     <None Include="..\assets\shaders\lineVert.glsl">
+      <Filter>Shaders\Shader Files</Filter>
+    </None>
+    <None Include="..\assets\shaders\skyboxFrag.glsl">
+      <Filter>Shaders\Shader Files</Filter>
+    </None>
+    <None Include="..\assets\shaders\skyboxVert.glsl">
       <Filter>Shaders\Shader Files</Filter>
     </None>
   </ItemGroup>

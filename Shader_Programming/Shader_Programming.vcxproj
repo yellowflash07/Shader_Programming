@@ -145,6 +145,7 @@
     <ClInclude Include="GraphicsCommon.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
@@ -158,12 +159,15 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\shaders\frag.glsl" />
     <None Include="..\assets\shaders\lineFrag.glsl" />
     <None Include="..\assets\shaders\lineVert.glsl" />
+    <None Include="..\assets\shaders\skyboxFrag.glsl" />
+    <None Include="..\assets\shaders\skyboxVert.glsl" />
     <None Include="..\assets\shaders\vert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

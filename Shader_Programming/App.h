@@ -8,6 +8,7 @@
 #include "cBasicTextureManager.h"
 #include "Camera.h"
 #include "Renderer.h"
+#include "Skybox.h"
 
 class App
 {
@@ -37,6 +38,9 @@ private:
 	cBasicTextureManager m_textureManager;
 	Camera* m_pCamera;
 	Renderer* m_pRenderer;
+	Skybox* m_pSkybox;
+
+	std::vector<Material*> m_materials;
 
 	double currentTime = 0.0f;
 	double lastTime = 0.0f;
